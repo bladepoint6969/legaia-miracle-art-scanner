@@ -15,7 +15,6 @@ enum Move {
     Right,
 }
 
-
 #[derive(Debug, Clone, Parser)]
 #[command(about, version, author)]
 struct Cli {
@@ -72,8 +71,7 @@ fn main() {
 
 fn combo_has_art(combo: &[Move], arts: &[Vec<Move>]) -> bool {
     arts.iter().any(|art| {
-        combo.windows(art.len())
-        .any(|section| {
+        combo.windows(art.len()).any(|section| {
             let mut zip = section.iter().zip(art.iter());
             zip.all(|(this, that)| this == that)
         })
