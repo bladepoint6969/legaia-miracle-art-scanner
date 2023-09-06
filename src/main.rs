@@ -61,8 +61,7 @@ fn main() {
         .map(|_| [Move::High, Move::Left, Move::Low, Move::Right])
         .multi_cartesian_product()
         .filter(|combo| !combo_has_too_many_repeats(combo, args.max_consecutive_repeats))
-        .filter(|combo| !combo_has_art(combo, &arts))
-        .unique();
+        .filter(|combo| !combo_has_art(combo, &arts));
 
     for combo in all_combos {
         println!("{combo:?}");
