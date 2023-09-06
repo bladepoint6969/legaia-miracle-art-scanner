@@ -4,9 +4,17 @@ use std::{
     path::PathBuf,
 };
 
-use arts_scanner::Move;
 use clap::Parser;
 use itertools::Itertools;
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+enum Move {
+    High,
+    Low,
+    Left,
+    Right,
+}
+
 
 #[derive(Debug, Clone, Parser)]
 struct Cli {
@@ -63,8 +71,8 @@ fn main() {
 
 fn combo_has_art(combo: &[Move], arts: &[Vec<Move>]) -> bool {
     arts.iter().any(|art| {
-        let mut combo_window = combo.windows(art.len());
-        combo_window.any(|section| {
+        combo.windows(art.len())
+        .any(|section| {
             let mut zip = section.iter().zip(art.iter());
             zip.all(|(this, that)| this == that)
         })
