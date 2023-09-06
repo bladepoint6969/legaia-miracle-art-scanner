@@ -17,6 +17,7 @@ enum Move {
 
 
 #[derive(Debug, Clone, Parser)]
+#[command(about, version, author)]
 struct Cli {
     #[arg(short, long)]
     /// File path to arts file
