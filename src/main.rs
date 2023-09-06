@@ -28,9 +28,9 @@ struct Cli {
     ///   ^: High
     ///   v: Low
     arts: Option<PathBuf>,
-    #[arg(short, long, default_value_t = 9, value_parser = 1..=9)]
+    #[arg(short, long, default_value_t = 9, value_parser = clap::value_parser!(u8).range(1..=9))]
     /// The maximum number of consecutive identical moves
-    max_consecutive_repeats: i64,
+    max_consecutive_repeats: u8,
 }
 
 fn main() {
@@ -77,7 +77,7 @@ fn combo_has_art(combo: &[Move], arts: &[Vec<Move>]) -> bool {
     })
 }
 
-fn combo_has_too_many_repeats(combo: &[Move], max_allowed_repeats: i64) -> bool {
+fn combo_has_too_many_repeats(combo: &[Move], max_allowed_repeats: u8) -> bool {
     if max_allowed_repeats == 9 {
         return false;
     }
